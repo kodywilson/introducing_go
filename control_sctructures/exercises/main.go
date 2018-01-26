@@ -33,4 +33,23 @@ func main() {
 			}
 		}
 	}
+	// BuzzFizz!
+	for i := 200; i >= 1; i-- {
+		if i%3 == 0 {
+			if i%5 == 0 {
+				fmt.Println(i, "BuzzFizz")
+				continue
+			} else {
+				fmt.Println(i, "Buzz")
+			}
+		}
+		if i%5 == 0 {
+			if i%3 == 0 {
+				fmt.Println(i, "BuzzFizz")
+				continue
+			} else {
+				fmt.Println(i, "Fizz")
+			}
+		}
+	}
 }
