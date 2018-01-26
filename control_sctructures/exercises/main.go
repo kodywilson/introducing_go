@@ -15,7 +15,7 @@ func main() {
 		}
 	}
 	// FizzBuzz!
-	for i := 1; i < 101; i++ {
+	for i := 1; i < 201; i++ {
 		if i%3 == 0 {
 			if i%5 == 0 {
 				fmt.Println(i, "FizzBuzz")
