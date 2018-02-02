@@ -14,4 +14,5 @@ func main() {
 		total += v
 	}
 	fmt.Println(total / float64(len(xs)))
+	average(xs)
 }
