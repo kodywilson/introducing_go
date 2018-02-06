@@ -11,7 +11,7 @@ func average(xs []float64) float64 {
 }
 
 func main() {
-	xs := []float64{98, 93, 77, 82, 83, 1000}
+	xs := []float64{98, 93, 77, 82, 83, 1000, 24, 100000}
 
 	total := 0.0
 	for _, v := range xs {
