@@ -9,4 +9,8 @@ func main() {
 	} else {
 		fmt.Println("7 is odd")
 	}
+
+	if 8%4 == 0 {
+		fmt.Println("8 is evenly divisible by 4")
+	}
 }
