@@ -5,15 +5,16 @@ import "time"
 
 func main() {
 
-	i := 2
-	fmt.Println("Write ", i, " as ")
-	switch i {
-	case 1:
-		fmt.Println("one")
-	case 2:
-		fmt.Println("two")
-	case 3:
-		fmt.Println("three")
+	for i := 1; i < 4; i++ {
+		fmt.Println("Write ", i, " as ")
+		switch i {
+		case 1:
+			fmt.Println("one")
+		case 2:
+			fmt.Println("two")
+		case 3:
+			fmt.Println("three")
+		}
 	}
 
 	switch time.Now().Weekday() {
