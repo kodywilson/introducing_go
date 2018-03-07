@@ -38,11 +38,14 @@ func main() {
 			fmt.Println("I'm a bool")
 		case int:
 			fmt.Println("I'm an int")
+		case float64:
+			fmt.Println("I'm a float64")
 		default:
 			fmt.Printf("Don't know type %T\n", t)
 		}
 	}
 	whatAmI(true)
 	whatAmI(1)
+	whatAmI(234.234234234)
 	whatAmI("hey")
 }
