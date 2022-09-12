@@ -1,12 +1,11 @@
 package main
 
 import (
-	"example.com/greetings"
 	"fmt"
 	"log"
-)
 
-import "rsc.io/quote"
+	"example.com/greetings"
+)
 
 func main() {
 	// Set properties of the predefined logger, including the long entry prefix and a flag to
