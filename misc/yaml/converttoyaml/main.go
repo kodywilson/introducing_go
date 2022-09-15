@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+
+	"gopkg.in/yaml.v3"
+)
 
 type Car struct {
 	TopSpeed   int
@@ -17,5 +22,10 @@ func main() {
 		Passengers: []string{"garth", "wayne"},
 	}
 
-	fmt.Println(c)
+	out, err := yaml.Marshal(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(out))
 }
