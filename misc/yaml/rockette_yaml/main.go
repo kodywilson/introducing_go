@@ -9,9 +9,9 @@ import (
 )
 
 type Config struct {
-	GrantType     string `yaml:"grant_type"`
-	ContentType   string `yaml:"content_type"`
-	Authorization string `yaml:"authorization"`
+	GrantType   string `yaml:"grant_type"`
+	ContentType string `yaml:"content_type"`
+	//Authorization string `yaml:"authorization"` // use env variable while testing
 }
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Create an empty Car to be are target of unmarshalling
+	// Create an empty Config to be are target of unmarshalling
 	var c Config
 
 	// Unmarshal our input YAML file into empty Config (var c)
