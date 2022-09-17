@@ -14,7 +14,7 @@ func main() {
 	}
 	fmt.Println(bob.Name)
 
-	darrel := Player{Name: "Darrel"}
+	darrel := &Player{Name: "Darrel"}
 	darrel.Str = 12
 	fmt.Println(darrel.Name, darrel.Str)
 
@@ -22,6 +22,6 @@ func main() {
 	fmt.Println(darrel.Name, darrel.Str)
 }
 
-func Super(p Player) {
+func Super(p *Player) {
 	p.Str += 2
 }
