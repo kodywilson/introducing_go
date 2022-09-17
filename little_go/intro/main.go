@@ -13,8 +13,17 @@ func main() {
 
 	power := getPower()
 	fmt.Println(power)
+
+	name, str := "Bob", 18
+	fmt.Printf("%s's strength is %d\n", name, str)
+	numby, booly := twoReturn(20)
+	fmt.Println(numby, booly)
 }
 
 func getPower() int {
 	return 9001
+}
+
+func twoReturn(val int) (int, bool) {
+	return val * 2, true
 }
