@@ -5,6 +5,7 @@ import "fmt"
 type Player struct {
 	Name string
 	Str int
+	Father *Player
 }
 
 type Mob struct {
@@ -32,6 +33,17 @@ func main() {
 
 	bob = NewPlayer("Bob", 16)
 	fmt.Println(bob.Name)
+
+	george := &Player{
+		Name: "George",
+		Str: 14,
+		Father: &Player {
+			Name: "Johny",
+			Str: 16,
+			Father: nil,
+		},
+	}
+	fmt.Println(*george.Father)
 }
 
 func Super(p *Player) {
