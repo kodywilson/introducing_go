@@ -7,6 +7,11 @@ type Player struct {
 	Str int
 }
 
+type Mob struct {
+	Name string
+	Int int
+}
+
 func main() {
 	bob := Player{
 		Name: "Bob",
@@ -20,8 +25,26 @@ func main() {
 
 	Super(darrel)
 	fmt.Println(darrel.Name, darrel.Str)
+
+	wiz := &Mob{"Fizban", 16}
+	wiz.Souper()
+	fmt.Println(wiz.Int) // will show two added from Souper() = 18
+
+	bob = NewPlayer("Bob", 16)
+	fmt.Println(bob.Name)
 }
 
 func Super(p *Player) {
 	p.Str += 2
+}
+
+func (m *Mob) Souper() {
+	m.Int += 2
+}
+
+func NewPlayer(name string, str int) Player {
+	return Player{
+		Name: name,
+		Str: str,
+	}
 }
