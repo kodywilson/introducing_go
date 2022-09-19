@@ -4,7 +4,24 @@ import (
 	"fmt"
 )
 
-const a int16 = 27
+// iota is scoped to constant block
+const (
+	x = iota
+	y = iota
+	z = iota
+)
+
+const (
+	_  = iota // ignore first value
+	KB = 1 << (10 * iota)
+	MB
+	GB
+	TB
+	PB
+	EB
+	ZB
+	YB
+)
 
 func main() {
 	const a int = 42
@@ -15,4 +32,7 @@ func main() {
 	fmt.Printf("%v\n", b)
 	fmt.Printf("%v\n", c)
 	fmt.Printf("%v\n", d)
+	fmt.Printf("%v, %v, %v\n", x, y, z)
+	fileSize := 4000000000.
+	fmt.Printf("%.2fGB\n", fileSize/GB)
 }
