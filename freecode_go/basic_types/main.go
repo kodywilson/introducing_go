@@ -45,4 +45,9 @@ func main() {
 	fmt.Printf("%v, %T\n", imag(m), imag(m))
 	var h complex128 = complex(5, 12)
 	fmt.Printf("%v, %T\n", h, h)
+
+	// strings
+	s := "this is a string"
+	fmt.Printf("%v, %T\n", s, s)
+	fmt.Println(len(s))
 }
