@@ -37,4 +37,10 @@ func main() {
 	g = 13.7e72
 	g = 2.1e14
 	fmt.Printf("%v, %T\n", g, g)
+
+	// complex numbers
+	var m complex64 = 1 + 2i
+	fmt.Printf("%v, %T\n", m, m)
+	fmt.Printf("%v, %T\n", real(m), real(m))
+	fmt.Printf("%v, %T\n", imag(m), imag(m))
 }
