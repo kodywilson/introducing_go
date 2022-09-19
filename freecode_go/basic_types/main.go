@@ -53,4 +53,8 @@ func main() {
 	fmt.Println(len(s))
 	fmt.Printf("%v, %T\n", s[0], s[0])
 	fmt.Printf("%v, %T\n", s+s2, s+s2)
+
+	// runes
+	r := 'a' // same as var r rune = 'a'
+	fmt.Printf("%v, %T\n", r, r)
 }
