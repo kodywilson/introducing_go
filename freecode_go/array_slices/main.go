@@ -20,6 +20,7 @@ func main() {
 	b[1] = 7
 	fmt.Println(a)
 	fmt.Println(b)
+	// create slice with empty [] or by taking part of an existing array
 	c := []int{1, 2, 3}
 	fmt.Println(c)
 	fmt.Printf("Length: %v\n", len(c))
