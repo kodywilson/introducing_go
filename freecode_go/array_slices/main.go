@@ -42,4 +42,7 @@ func main() {
 	fmt.Println(e)
 	e = e[:len(e)-1] // remove last element
 	fmt.Println(e)
+	e = []int{1, 2, 3, 4, 5}
+	e = append(e[:2], e[3:]...) // remove middle element
+	fmt.Println(e)
 }
