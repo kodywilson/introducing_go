@@ -2,6 +2,12 @@ package main
 
 import "fmt"
 
+type Doctor struct {
+	number     int
+	actorName  string
+	companions []string
+}
+
 func main() {
 	// Create map of states with population
 	statePopulations := map[string]int{
@@ -27,4 +33,24 @@ func main() {
 	delete(sp, "Ohio") // change sp and you change statePopulations
 	fmt.Println(sp)
 	fmt.Println(statePopulations)
+
+	aDoctor := Doctor{
+		number:    3,
+		actorName: "Jon Pertwee",
+		companions: []string{
+			"Liz Shaw",
+			"Jo Grant",
+			"Sarah",
+			"Jane Smith",
+		},
+	}
+	// You can do this, but it's probably not a good idea...
+	bDoctor := Doctor{4, "Jack Holiday", []string{"Billy", "Bob"}}
+	fmt.Println(aDoctor)
+	fmt.Println(aDoctor.companions[0])
+	fmt.Println(bDoctor)
+	// structs pass by copy
+	cDoctor := bDoctor
+	cDoctor.actorName = "Jazz Handy"
+	fmt.Println(cDoctor)
 }
