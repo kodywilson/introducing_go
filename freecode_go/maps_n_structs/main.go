@@ -1,6 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
+
+type Animal struct {
+	Name   string `required max:"100"`
+	Origin string
+}
+
+type Bird struct {
+	Animal
+	SpeedKPH float32
+	CanFly   bool
+}
 
 type Doctor struct {
 	number     int
@@ -34,6 +48,7 @@ func main() {
 	fmt.Println(sp)
 	fmt.Println(statePopulations)
 
+	// Structs!
 	aDoctor := Doctor{
 		number:    3,
 		actorName: "Jon Pertwee",
@@ -53,4 +68,24 @@ func main() {
 	cDoctor := bDoctor
 	cDoctor.actorName = "Jazz Handy"
 	fmt.Println(cDoctor)
+
+	// Embedded structs (composition)
+	b := Bird{}
+	b.Name = "Emu"
+	b.Origin = "Australia"
+	b.SpeedKPH = 48
+	b.CanFly = false
+	fmt.Println(b)
+	fmt.Println(b.Name)
+	c := Bird{
+		Animal:   Animal{Name: "Emu", Origin: "Australia"},
+		SpeedKPH: 30,
+		CanFly:   false,
+	}
+	fmt.Println(c)
+
+	// tags
+	t := reflect.TypeOf(Animal{})
+	field, _ := t.FieldByName("Name")
+	fmt.Println(field.Tag)
 }
