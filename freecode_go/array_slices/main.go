@@ -25,6 +25,21 @@ func main() {
 	fmt.Printf("Length: %v\n", len(c))
 	fmt.Printf("Capacity: %v\n", cap(c))
 	// using make to create array
-	d := make([]int, 3)
+	d := make([]int, 3, 100)
 	fmt.Println(d)
+	fmt.Printf("Length: %v\n", len(d))
+	fmt.Printf("Capacity: %v\n", cap(d))
+	d = append(d, 1)
+	fmt.Println(d)
+	fmt.Printf("Length: %v\n", len(d))
+	fmt.Printf("Capacity: %v\n", cap(d))
+	// pop and push
+	e := []int{1, 2, 3, 4, 5}
+	fmt.Println(e)
+	e = append(e, 6) // push an element onto slice
+	fmt.Println(e)
+	e = e[1:] // pop off the first element
+	fmt.Println(e)
+	e = e[:len(e)-1] // remove last element
+	fmt.Println(e)
 }
