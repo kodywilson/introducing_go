@@ -43,14 +43,31 @@ func main() {
 	default:
 		fmt.Println("not matched")
 	}
+	// another way to do case statement
 	j := 10
 	switch {
 	case j <= 10:
 		fmt.Println("less than or equal to ten")
+		//fallthrough - fall through to next case
+		// Go has implicit breaks in case statements
 	case j <= 20:
 		fmt.Println("less than or equal to 20")
 	default:
 		fmt.Println("greater than twenty")
+	}
+	// switch on interface
+	var k interface{} = 1
+	switch k.(type) {
+	case int:
+		fmt.Println("k is an int")
+		break // break out early
+		fmt.Println("This will print too")
+	case float64:
+		fmt.Println("k is a float64")
+	case string:
+		fmt.Println("k is a string")
+	default:
+		fmt.Println("k is another type")
 	}
 }
 
