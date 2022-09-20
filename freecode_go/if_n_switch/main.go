@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	// if statements
 	if true {
 		fmt.Println("The test is true")
 	}
@@ -31,6 +32,16 @@ func main() {
 		fmt.Println("These are the same")
 	} else {
 		fmt.Println("These are different")
+	}
+
+	// switch statements
+	switch 2 {
+	case 1:
+		fmt.Println("one")
+	case 2:
+		fmt.Println("two")
+	default:
+		fmt.Println("not one or two")
 	}
 }
 
