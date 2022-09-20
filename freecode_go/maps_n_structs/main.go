@@ -42,6 +42,9 @@ func main() {
 	_, ok := statePopulations["Ohio"] // check if key is present
 	fmt.Println(ok)
 	fmt.Println(len(statePopulations))
+	if pop, ok := statePopulations["Florida"]; ok {
+		fmt.Println(pop)
+	}
 	// maps pass by reference
 	sp := statePopulations
 	delete(sp, "Ohio") // change sp and you change statePopulations
