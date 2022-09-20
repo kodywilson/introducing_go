@@ -43,4 +43,39 @@ func main() {
 		}
 		fmt.Println(i)
 	}
+
+	// nested loops
+	fmt.Println("Now print nested loop results")
+	for i := 1; i <= 3; i++ {
+		for j := 1; j <= 3; j++ {
+			fmt.Println(i * j)
+		}
+	}
+
+	// looping over collections
+	s := []int{1, 2, 3}
+	for i := 0; i < 3; i++ {
+		fmt.Println(s[i])
+	}
+	for k, v := range s {
+		fmt.Println(k, v)
+	}
+	// over maps also
+	statePopulations := map[string]int{
+		"California":   39250017,
+		"Texas":        27862596,
+		"Florida":      20612439,
+		"New York":     19745289,
+		"Pennsylvania": 12802503,
+		"Illinois":     12801539,
+		"Ohio":         11614373,
+	}
+	for k, v := range statePopulations {
+		fmt.Println(k, v)
+	}
+	// over strings
+	stringy := "Hello Go!"
+	for k, v := range stringy {
+		fmt.Println(k, v, string(v))
+	}
 }
