@@ -57,6 +57,7 @@ func main() {
 	}
 	// switch on interface
 	var k interface{} = 1
+	// .(type) to get type of interface
 	switch k.(type) {
 	case int:
 		fmt.Println("k is an int")
