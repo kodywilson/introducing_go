@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
 	if true {
@@ -22,6 +25,12 @@ func main() {
 		}
 		fmt.Println(number <= guess, number >= guess, number != guess)
 		fmt.Println(returnTrue())
+	}
+	myNum := 0.123
+	if math.Abs(myNum/math.Pow(math.Sqrt(myNum), 2)-1) < 0.0001 {
+		fmt.Println("These are the same")
+	} else {
+		fmt.Println("These are different")
 	}
 }
 
