@@ -11,4 +11,16 @@ func main() {
 	fmt.Println(a, *b) // show memory addresses
 	a = 27
 	fmt.Println(a, *b)
+	*b = 77
+	fmt.Println(a, *b)
+	fmt.Printf("The type of b is %T\n", b)
+	// Go does not allow pointer arithmetic without using unsafe
+	var ms *myStruct
+	ms = new(myStruct)
+	ms.foo = 42 // the compiler will derefence for you
+	fmt.Println(ms.foo)
+}
+
+type myStruct struct {
+	foo int
 }
