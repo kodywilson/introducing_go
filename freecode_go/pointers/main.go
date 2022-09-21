@@ -19,6 +19,9 @@ func main() {
 	ms = new(myStruct)
 	ms.foo = 42 // the compiler will derefence for you
 	fmt.Println(ms.foo)
+
+	c := map[string]string{"foo": "bar", "baz": "buz"}
+	fmt.Println(c)
 }
 
 type myStruct struct {
