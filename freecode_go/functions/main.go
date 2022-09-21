@@ -12,7 +12,15 @@ func main() {
 	name := "Bob"
 	sayGreeting(&greeting, &name)
 	fmt.Println(name)
-	sum(1, 2, 3, 4, 5)
+	s := sum(1, 2, 3, 4, 5)
+	fmt.Println("The sum is", s)
+	// return more than one value
+	d, err := divide(5.0, 0.0)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(d)
 }
 
 func sayMessage(msg string, idx int) {
@@ -28,11 +36,20 @@ func sayGreeting(greeting, name *string) {
 }
 
 // variadic parameters must be the last one passed in and only one is allowed
-func sum(values ...int) {
+func sum(values ...int) int { // can also return with (result int)
 	fmt.Println(values)
 	result := 0
 	for _, v := range values {
 		result += v
 	}
-	fmt.Println("The sum is", result)
+	return result // if you return with (result int) you can drop result
+	// in Go, you can return pointers to local variables
+	// return &result - return type would be *int
+}
+
+func divide(a, b float64) (float64, error) {
+	if b == 0.0 {
+		return 0.0, fmt.Errorf("Cannot divide by zero")
+	}
+	return a / b, nil
 }
