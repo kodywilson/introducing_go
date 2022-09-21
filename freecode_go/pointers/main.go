@@ -33,8 +33,15 @@ func main() {
 	x[1] = 42
 	fmt.Println(x, y)
 
+	// maps also point to the original map when copied, like slices
 	c := map[string]string{"foo": "bar", "baz": "buz"}
-	fmt.Println(c)
+	d := c
+	fmt.Println(c, d)
+	c["foo"] = "qux"
+	fmt.Println(c, d)
+
+	// quick recap, primitives, arrays, and structs copy the object into new memory
+	// maps and slices, copy the memory location so altering the original, alters the copy as well
 }
 
 type aStruct struct {
