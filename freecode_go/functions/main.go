@@ -21,10 +21,33 @@ func main() {
 		return
 	}
 	fmt.Println(d)
-	// anonymous functions (run once)
-	func() {
+	// anonymous functions (run once) - can assign to variable
+	f := func() {
 		fmt.Println("Hey Jude")
-	}()
+	}
+	f()
+	fmt.Printf("f is type %T\n", f)
+	// can also create anonymous functions using long form
+	var divider func(float64, float64) (float64, error)
+  divider = func(a, b float64) (float64, error) {
+		if b == 0.0 {
+			return 0.0, fmt.Errorf("Cannot divide by zero")
+		}
+		return a / b, nil
+	}
+	e, err := divider(5.0, 0.1)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(e)
+	// methods
+	g := greeter{
+		greeting: "Hola",
+		name: "Roberto",
+	}
+	g.greet()
+	fmt.Println("The name is now", g.name)
 }
 
 func sayMessage(msg string, idx int) {
@@ -56,4 +79,17 @@ func divide(a, b float64) (float64, error) {
 		return 0.0, fmt.Errorf("Cannot divide by zero")
 	}
 	return a / b, nil
+}
+
+type greeter struct {
+	greeting string
+	name string
+}
+
+// method
+// use (g *greeter) to send pointer instead of copy of struct
+// this allows you to modify the contents of the struct
+func (g *greeter) greet() {
+	fmt.Println(g.greeting, g.name)
+  g.name = "Bob"
 }
