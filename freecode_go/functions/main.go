@@ -15,12 +15,16 @@ func main() {
 	s := sum(1, 2, 3, 4, 5)
 	fmt.Println("The sum is", s)
 	// return more than one value
-	d, err := divide(5.0, 0.0)
+	d, err := divide(5.0, 0.1) // set second value to 0.0 to see error handling
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Println(d)
+	// anonymous functions (run once)
+	func() {
+		fmt.Println("Hey Jude")
+	}()
 }
 
 func sayMessage(msg string, idx int) {
