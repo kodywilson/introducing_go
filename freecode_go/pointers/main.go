@@ -15,13 +15,30 @@ func main() {
 	fmt.Println(a, *b)
 	fmt.Printf("The type of b is %T\n", b)
 	// Go does not allow pointer arithmetic without using unsafe
+	// pointers with structs
+	var as aStruct
+	as = aStruct{foo: 300}
+	fmt.Println(as)
 	var ms *myStruct
-	ms = new(myStruct)
+	ms = new(myStruct) // cannot use object initialization syntax with new
+	// Don't have to use (*ms).foo - Go allows ms.foo
 	ms.foo = 42 // the compiler will derefence for you
 	fmt.Println(ms.foo)
 
+	// pointers with arrays and slices
+	// arrays get copied while slices point to original slice
+	x := []int{1, 2, 3}
+	y := x
+	fmt.Println(x, y)
+	x[1] = 42
+	fmt.Println(x, y)
+
 	c := map[string]string{"foo": "bar", "baz": "buz"}
 	fmt.Println(c)
+}
+
+type aStruct struct {
+	foo int
 }
 
 type myStruct struct {
