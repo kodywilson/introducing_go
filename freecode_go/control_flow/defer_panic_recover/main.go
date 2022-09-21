@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fmt.Println("start")
-	defer fmt.Println("middle") // will run after main ends
+	defer fmt.Println("this was deferred") // will run after main ends
 	// defer goes last in first out order
 	fmt.Println("end")
 
@@ -22,11 +22,19 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%s", robots[:100]) // use [:100] to print part of text
+	fmt.Printf("%s\n", robots[:100]) // use [:100] to print part of text
 
 	// panic
-	//panic("something terrible happened")
+	/*defer func() {
+		if err := recover(); err != nil {
+			log.Println("Error:", err)
+		}
+	}()
+	panic("something terrible happened")*/
+	panicker()
+	fmt.Println("end")
 
+	/* Uncomment to start simple web server
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello Go!"))
 	})
@@ -34,4 +42,16 @@ func main() {
 	if err2 != nil {
 		panic(err2.Error())
 	}
+	*/
+}
+
+func panicker() {
+	fmt.Println("about to panic")
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("Error:", err)
+		}
+	}()
+	panic("something terrible happened")
+	fmt.Println("done panicking")
 }
