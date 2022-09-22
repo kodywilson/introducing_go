@@ -32,5 +32,5 @@ func main() {
 	// Print out the new struct
 	fmt.Printf("%+v\n", c)
 	// Print out one member of struct
-	fmt.Printf("%v\n", c.Authorization)
+	//fmt.Printf("%v\n", c.Authorization)
 }
