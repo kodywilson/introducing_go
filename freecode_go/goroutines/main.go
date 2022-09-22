@@ -19,11 +19,13 @@ func main() {
 	// var msg = "World"
 	// wg.Add(1)
 	// m.RLock()
-	// go func(msg string) {
+	// go func(msg string) { // pass in variables to avoid race conditions
 	// 	fmt.Println(msg)
 	// 	wg.Done()
 	// }(msg)
 	// msg = "Goodbye"
+	// catch race conditions with
+	// go run -race main.go
 	// more advanced example
 	for i := 0; i < 10; i++ {
 		wg.Add(2)
