@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"bytes"
+	"io"
 )
 
 func main() {
@@ -19,6 +20,23 @@ func main() {
 
 	bwc := wc.(*BufferedWriterCloser)
 	fmt.Println(bwc)
+
+	r, ok := wc.(io.Reader)
+	if ok {
+		fmt.Println(r)
+	} else {
+		fmt.Println("Conversion failed")
+	}
+	// type switch
+	var i interface{} = 0
+	switch i.(type) {
+	case int:
+		fmt.Println("i is an integer")
+	case string:
+		fmt.Println("is is a string")
+	default:
+		fmt.Println("I don't know what i is")
+	}
 }
 
 type Writer interface {
