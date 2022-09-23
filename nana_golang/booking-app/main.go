@@ -19,15 +19,7 @@ func main() {
 
 		firstName, lastName, email, userTickets := getUserInput(remainingTickets)
 
-		// Confirmation message
-		fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-
-		remainingTickets = remainingTickets - userTickets
-		bookings = append(bookings, firstName+" "+lastName)
-
-		fmt.Printf("First names of those attending: %v\n", getFirstNames(bookings))
-
-		fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+		bookTicket(remainingTickets, userTickets, bookings, firstName, lastName, email, conferenceName)
 
 		// Leave app if tickets are all gone
 		if remainingTickets == 0 {
@@ -115,5 +107,17 @@ func getUserInput(remainingTickets int) (string, string, string, int) {
 	}
 
 	return firstName, lastName, email, userTickets
+
+}
+
+func bookTicket(remainingTickets int, userTickets int, bookings []string, firstName string, lastName string, email string, conferenceName string) {
+	// Confirmation message
+	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+	remainingTickets = remainingTickets - userTickets
+	bookings = append(bookings, firstName+" "+lastName)
+
+	fmt.Printf("First names of those attending: %v\n", getFirstNames(bookings))
+
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
 }
