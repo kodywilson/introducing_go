@@ -43,6 +43,8 @@ func main() {
 			Father: nil,
 		},
 	}
+
+  // george is a pointer so * to dereference
 	fmt.Println(*george.Father)
 }
 
