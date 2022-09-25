@@ -5,21 +5,22 @@ import (
 	"strings"
 )
 
-func main() {
-	conferenceName := "Go Conference"
-	const conferenceTickets = 50
-	remainingTickets := 50
-	// array to hold bookings
-	var bookings []string
+var conferenceName = "Go Conference"
+const conferenceTickets = 50
+var	remainingTickets = 50
+// slice to hold bookings
+var bookings []string
 
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+func main() {
+	
+	greetUsers()
 
 	for {
 		var exit_app string
 
-		firstName, lastName, email, userTickets := getUserInput(remainingTickets)
+		firstName, lastName, email, userTickets := getUserInput()
 
-		bookTicket(remainingTickets, userTickets, bookings, firstName, lastName, email, conferenceName)
+		bookTicket(userTickets, firstName, lastName, email)
 
 		// Leave app if tickets are all gone
 		if remainingTickets == 0 {
@@ -35,13 +36,13 @@ func main() {
 	}
 }
 
-func greetUsers(conferenceName string, conferenceTickets int, remainingTickets int) {
+func greetUsers() {
 	fmt.Printf("Welcome to %s booking application\n", conferenceName)
 	fmt.Printf("We have a total of %v tickets and %v are still available", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 }
 
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		var names = strings.Fields(booking) // fields will split on space
@@ -57,7 +58,7 @@ func validateName(name string) bool {
 	return true
 }
 
-func getUserInput(remainingTickets int) (string, string, string, int) {
+func getUserInput() (string, string, string, int) {
 
 	var firstName string
 	var lastName string
@@ -110,13 +111,13 @@ func getUserInput(remainingTickets int) (string, string, string, int) {
 
 }
 
-func bookTicket(remainingTickets int, userTickets int, bookings []string, firstName string, lastName string, email string, conferenceName string) {
+func bookTicket(userTickets int, firstName string, lastName string, email string) {
 	// Confirmation message
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	remainingTickets = remainingTickets - userTickets
 	bookings = append(bookings, firstName+" "+lastName)
 
-	fmt.Printf("First names of those attending: %v\n", getFirstNames(bookings))
+	fmt.Printf("First names of those attending: %v\n", getFirstNames())
 
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
