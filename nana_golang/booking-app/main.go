@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+  "booking-app/helper" // module name + directory
 )
 
 var conferenceName = "Go Conference"
@@ -51,13 +52,6 @@ func getFirstNames() []string {
 	return firstNames
 }
 
-func validateName(name string) bool {
-	if len(name) < 2 || len(name) > 32 {
-		return false
-	}
-	return true
-}
-
 func getUserInput() (string, string, string, int) {
 
 	var firstName string
@@ -68,7 +62,9 @@ func getUserInput() (string, string, string, int) {
 	for {
 		fmt.Println("Enter your first name:")
 		fmt.Scan(&firstName)
-		if !validateName(firstName) {
+		// package.ExportedFuncName - when we moved validateName to helper package, we had to capitalize
+		// to export it for use in another package and we call it with package.FuncName
+		if !helper.ValidateName(firstName) {
 			fmt.Printf("You entered %v, first name must be at least 2 and no more than 32 characters\n", firstName)
 		} else {
 			break
@@ -76,10 +72,10 @@ func getUserInput() (string, string, string, int) {
 	}
 
 	//ask user for their last name, validate input
-	for !validateName(lastName) {
+	for !helper.ValidateName(lastName) {
 		fmt.Println("Enter your last name:")
 		fmt.Scan(&lastName)
-		if !validateName(lastName) {
+		if !helper.ValidateName(lastName) {
 			fmt.Printf("You entered %v, last name must be at least 2 and no more than 32 characters\n", lastName)
 		}
 	}
