@@ -4,6 +4,7 @@ import (
 	"booking-app/helper" // module name + directory
 	"fmt"
 	"strings"
+	"time"
 )
 
 var conferenceName = "Go Conference"
@@ -139,4 +140,14 @@ func bookTicket(userTickets int, firstName string, lastName string, email string
 	fmt.Printf("\nFirst names of those attending: %v\n", getFirstNames())
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
+	go sendTicket(userData)
+
+}
+
+func sendTicket(userData UserData) {
+	time.Sleep(10 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userData.userTickets, userData.firstName, userData.lastName)
+	fmt.Println("###############################")
+	fmt.Println(ticket)
+	fmt.Println("###############################")
 }
