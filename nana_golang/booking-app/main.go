@@ -4,6 +4,7 @@ import (
 	"booking-app/helper" // module name + directory
 	"fmt"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -23,6 +24,8 @@ type UserData struct {
 	userTickets int
 }
 
+var wg = sync.WaitGroup{}
+
 func main() {
 
 	greetUsers()
@@ -37,12 +40,14 @@ func main() {
 		// Leave app if tickets are all gone
 		if remainingTickets == 0 {
 			fmt.Printf("%v is sold out! Come back next year.\n", conferenceName)
+			wg.Wait() // wait until wait group is cleared
 			break
 		}
 
 		fmt.Println("Would you like to exit (Y/N)?")
 		fmt.Scan(&exit_app)
 		if exit_app == "Y" || exit_app == "y" {
+			wg.Wait() // wait until wait group is cleared
 			break
 		}
 	}
@@ -140,7 +145,8 @@ func bookTicket(userTickets int, firstName string, lastName string, email string
 	fmt.Printf("\nFirst names of those attending: %v\n", getFirstNames())
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-	go sendTicket(userData)
+	wg.Add(1)               // add x number of goroutines to a wait group
+	go sendTicket(userData) // spin off goroutine
 
 }
 
@@ -150,4 +156,5 @@ func sendTicket(userData UserData) {
 	fmt.Println("###############################")
 	fmt.Println(ticket)
 	fmt.Println("###############################")
+	wg.Done() // tells scheduler thread is done
 }
