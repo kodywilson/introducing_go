@@ -14,7 +14,7 @@ const conferenceTickets = 50
 var remainingTickets = 50
 
 // slice to hold bookings
-var bookings []string
+var bookings = []map[string]string{}
 
 func main() {
 
@@ -50,8 +50,8 @@ func greetUsers() {
 func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = strings.Fields(booking) // fields will split on space
-		firstNames = append(firstNames, names[0])
+		//var names = strings.Fields(booking) // fields will split on space
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	return firstNames
 }
@@ -123,13 +123,13 @@ func bookTicket(userTickets int, firstName string, lastName string, email string
 
 	fmt.Println(userData)
 
-	bookings = append(bookings, firstName+" "+lastName)
+	bookings = append(bookings, userData)
 
 	// Confirmation message
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 
-	fmt.Printf("First names of those attending: %v\n", getFirstNames())
-
+	// Conference Attendee Info
+	fmt.Printf("\nFirst names of those attending: %v\n", getFirstNames())
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
 }
