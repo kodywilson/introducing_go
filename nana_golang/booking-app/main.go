@@ -1,19 +1,23 @@
 package main
 
 import (
+	"booking-app/helper" // module name + directory
 	"fmt"
+	"strconv"
 	"strings"
-  "booking-app/helper" // module name + directory
 )
 
 var conferenceName = "Go Conference"
+
 const conferenceTickets = 50
-var	remainingTickets = 50
+
+var remainingTickets = 50
+
 // slice to hold bookings
 var bookings []string
 
 func main() {
-	
+
 	greetUsers()
 
 	for {
@@ -108,10 +112,21 @@ func getUserInput() (string, string, string, int) {
 }
 
 func bookTicket(userTickets int, firstName string, lastName string, email string) {
+	remainingTickets = remainingTickets - userTickets
+
+	// Create map of user data
+	var userData = map[string]string{}
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["userTickets"] = strconv.FormatInt(int64(userTickets), 10)
+
+	fmt.Println(userData)
+
+	bookings = append(bookings, firstName+" "+lastName)
+
 	// Confirmation message
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-	remainingTickets = remainingTickets - userTickets
-	bookings = append(bookings, firstName+" "+lastName)
 
 	fmt.Printf("First names of those attending: %v\n", getFirstNames())
 
