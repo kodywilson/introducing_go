@@ -3,7 +3,6 @@ package main
 import (
 	"booking-app/helper" // module name + directory
 	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -14,7 +13,14 @@ const conferenceTickets = 50
 var remainingTickets = 50
 
 // slice to hold bookings
-var bookings = []map[string]string{}
+var bookings = []UserData{}
+
+type UserData struct {
+	firstName   string
+	lastName    string
+	email       string
+	userTickets int
+}
 
 func main() {
 
@@ -51,7 +57,7 @@ func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		//var names = strings.Fields(booking) // fields will split on space
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -114,12 +120,13 @@ func getUserInput() (string, string, string, int) {
 func bookTicket(userTickets int, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 
-	// Create map of user data
-	var userData = map[string]string{}
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["userTickets"] = strconv.FormatInt(int64(userTickets), 10)
+	// Create struct of user data
+	var userData = UserData{
+		firstName:   firstName,
+		lastName:    lastName,
+		email:       email,
+		userTickets: userTickets,
+	}
 
 	fmt.Println(userData)
 
