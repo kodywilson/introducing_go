@@ -48,9 +48,3 @@ func main() {
 	configurationProvider := initializeConfigurationProvider()
 	listDomains(configurationProvider)
 }
-
-// Testing with Curl - first install mysql if needed, create user and grant privileges
-// Create a book
-// curl -d '{"name":"Go Is Fun","author":"Nawt Reel", "publication":"Fresh Press"}' -H 'Content-Type: application/json' http://localhost:9010/book/
-// Get book by id
-// curl -v http://localhost:9010/book/3
