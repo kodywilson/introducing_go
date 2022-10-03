@@ -4,6 +4,7 @@ import "fmt"
 
 type hotdog int
 
+var a = 42
 var b hotdog = 420
 
 func main() {
@@ -16,4 +17,6 @@ func main() {
 	z := fmt.Sprintf("%d = %b = %#X", y, y, y)
 	fmt.Println(z)
 	fmt.Printf("variable b is type %T\n", b)
+	a = int(b)
+	fmt.Printf("variable a is type %T\n", a)
 }
