@@ -14,6 +14,9 @@ type number int
 
 var ex number
 
+// Ex 5
+var why int
+
 func main() {
 	// Exercise 1
 	//x := 42
@@ -40,4 +43,9 @@ func main() {
 	fmt.Printf("the type of ex is %T\n", ex)
 	ex = 42
 	fmt.Println("Now ex is", ex)
+
+	// Ex 5
+	why = int(ex)
+	fmt.Println("why is", why)
+	fmt.Printf("why is type %T\n", why)
 }
