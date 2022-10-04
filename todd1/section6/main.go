@@ -2,6 +2,12 @@ package main
 
 import "fmt"
 
+const (
+	k = iota
+	l = iota
+	m = iota
+)
+
 func main() {
 	// boolean type - true / false
 	var booly bool
@@ -38,4 +44,21 @@ func main() {
 	n := bs[0]
 	fmt.Println(n)
 	fmt.Printf("type: %T binary: %b hex: %#X\n", n, n, n)
+
+	// iota
+	fmt.Println(k, l, m)
+
+	// bit shifting
+	z := 4
+	fmt.Printf("%d\t\t%b\n", z, z)
+	t := z << 1
+	fmt.Printf("%d\t\t%b\n", t, t)
+
+	kb := 1024
+	mb := 1024 * kb
+	gb := 1024 * mb
+	fmt.Printf("%d\t\t%b\n", kb, kb)
+	fmt.Printf("%d\t\t%b\n", mb, mb)
+	fmt.Printf("%d\t%b\n", gb, gb)
+
 }
