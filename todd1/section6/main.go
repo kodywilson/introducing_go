@@ -20,4 +20,22 @@ func main() {
 	// those follow the same pattern uint8, uint16, uint32, etc.
 	var bite byte = 42
 	fmt.Printf("bite is type %T\n", bite)
+
+	// strings
+	s := "Hello, people" // use `` for string literals
+	fmt.Println(s)
+
+	bs := []byte(s) // convert string to slice of bytes
+	fmt.Println(bs)
+	fmt.Printf("%T\n", bs) // prints out ascii codes of each letter in the slice
+
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("ASCII: %v\tUnicode: %#U\tHexidecimal: %#X\n", s[i], s[i], s[i])
+	}
+
+	// rune is an alias for int32
+	// unicode uses int32 (4 bytes)
+	n := bs[0]
+	fmt.Println(n)
+	fmt.Printf("type: %T binary: %b hex: %#X\n", n, n, n)
 }
