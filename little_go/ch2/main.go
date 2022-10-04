@@ -15,7 +15,7 @@ type Mob struct {
 
 func main() {
 	bob := Player{
-		Name: "Bob",
+		Name: "Robert",
 		Str: 16,
 	}
 	fmt.Println(bob.Name)
@@ -27,7 +27,7 @@ func main() {
 	Super(darrel)
 	fmt.Println(darrel.Name, darrel.Str)
 
-	wiz := &Mob{"Fizban", 16}
+	wiz := &Mob{"Fizban", 14}
 	wiz.Souper()
 	fmt.Println(wiz.Int) // will show two added from Souper() = 18
 
