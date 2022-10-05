@@ -43,4 +43,28 @@ func main() {
 		fmt.Printf("%c", i)
 	}
 	fmt.Println()
+
+	// if then conditionals
+	if true {
+		fmt.Println("True")
+	}
+	if !false {
+		fmt.Println("Not false (true)")
+	}
+
+	// local scope variable part of conditional
+	if x := 42; x == 42 {
+		fmt.Println("true")
+	}
+	// fmt.Println(x) no access to x in this case. It is
+	// local to the if statement
+
+	x := 39
+	if x == 40 {
+		fmt.Println("value is 40")
+	} else if x > 40 {
+		fmt.Println("value is over 40")
+	} else {
+		fmt.Println("value is under 40")
+	}
 }
