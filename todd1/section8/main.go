@@ -67,4 +67,36 @@ func main() {
 	} else {
 		fmt.Println("value is under 40")
 	}
+
+	// check evens again
+	for i := 0; i < 20; i++ {
+		if i%2 == 0 {
+			fmt.Println(i, "is even")
+		}
+	}
+
+	// switch
+	switch {
+	case false:
+		fmt.Println("false")
+	case x == 39:
+		fmt.Println("true")
+	case true:
+		fmt.Println(true)
+		fallthrough // will fallthrough even if next case is false!
+	case false:
+		fmt.Println("false")
+	default:
+		fmt.Println(false)
+	}
+
+	s := "Bond"
+	switch s {
+	case "Moneypenny":
+		fmt.Println("Miss Moneypenny")
+	case "Bond":
+		fmt.Println("Bond, James Bond")
+	case "M", "Q": // can use comma separated vals
+		fmt.Println("Either M or Q")
+	}
 }
