@@ -39,9 +39,34 @@ func main() {
 	for i := 10; i <= 100; i++ {
 		fmt.Printf("%v %% 4 == %d\n", i, i%4)
 	}
-	// ex6
+	// ex6 and ex7
 	iamawesome := true
 	if iamawesome {
 		fmt.Println("I am awesome?", iamawesome)
+	} else if !iamawesome {
+		fmt.Println("Sadly, you are not awesome. :(")
+	} else {
+		fmt.Println("I am not sure of your awesomeness")
 	}
+	// ex8
+	switch {
+	case false:
+		fmt.Println("False")
+	case true:
+		fmt.Println("True")
+	}
+	// ex9
+	favSport := "football"
+	switch favSport {
+	case "soccer":
+		fmt.Println("You love soccer")
+	case "football":
+		fmt.Println("Football is your favorite")
+	}
+	// ex10
+	fmt.Println(true && true)  // true
+	fmt.Println(true && false) // false
+	fmt.Println(true || true)  // true
+	fmt.Println(true || false) // true
+	fmt.Println(!true)         // false
 }
