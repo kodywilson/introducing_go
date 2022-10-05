@@ -26,4 +26,22 @@ func main() {
 		counter++
 	}
 	fmt.Println("You have been alive", counter, "years!")
+	// ex4
+	bd := 1977
+	for {
+		fmt.Println(bd)
+		bd++
+		if bd > 2022 {
+			break
+		}
+	}
+	// ex5
+	for i := 10; i <= 100; i++ {
+		fmt.Printf("%v %% 4 == %d\n", i, i%4)
+	}
+	// ex6
+	iamawesome := true
+	if iamawesome {
+		fmt.Println("I am awesome?", iamawesome)
+	}
 }
