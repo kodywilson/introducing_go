@@ -47,4 +47,37 @@ func main() {
 	for i := 0; i < len(states); i++ {
 		fmt.Println(states[i])
 	}
+
+	// ex7 - create slice of a slice of string
+	people := [][]string{
+		{"James", "Bond", "Shaken, not stirred"},
+		{"Miss", "Moneypenny", "Helloooo, James"},
+	}
+	for _, v := range people {
+		for _, val := range v {
+			fmt.Printf("%v ", val)
+		}
+		fmt.Println()
+	}
+
+	// ex8 - create a map with string key and val is slice of favorite things
+	data := map[string][]string{
+		"bond faves":  {"James", "Bond", "Shaken, not stirred", "Martinis", "Women"},
+		"money faves": {"Miss", "Moneypenny", "Helloooo, James", "Literature", "Computer Science"},
+		"dr_no faves": {"Dr", "No", "Being evil", "Sunsets"},
+	}
+	// ex9 - add a record to data and range over map
+	data["M"] = []string{"M", "M", "BOOOND!!", "Gadgets"}
+
+	// ex10 - delete a record from data and range over map
+	delete(data, "dr_no faves")
+
+	for k, v := range data {
+		fmt.Println(k)
+		for i, v := range v {
+			fmt.Printf("Index: %v\t Value: %v", i, v)
+			fmt.Println()
+		}
+		fmt.Println()
+	}
 }
