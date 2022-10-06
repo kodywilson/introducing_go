@@ -31,6 +31,20 @@ func main() {
 	x = append(x, 52, 54, 55)
 	fmt.Println(x)
 	y := []int{56, 57, 58, 59, 60}
-	x = append(x, y...)
+	x = append(x, y...) // unfurl slice into target slice
 	fmt.Println(x)
+
+	// ex5 - delete from slice
+	x = []int{42, 43, 44, 45, 46, 47, 48, 49, 50, 51}
+	x = append(x[:3], x[6:]...)
+	fmt.Println(x)
+
+	// ex6 - create slice of strings with make
+	states := make([]string, 0, 50)
+	states = append(states, "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado")
+	fmt.Println(states)
+	fmt.Println(len(states))
+	for i := 0; i < len(states); i++ {
+		fmt.Println(states[i])
+	}
 }
