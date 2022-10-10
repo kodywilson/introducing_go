@@ -28,9 +28,33 @@ func (c Circle) area() float64 {
 	return 3.14 * c.radius * c.radius
 }
 
+type Worker interface {
+	Work()
+}
+
+type Person struct {
+	name string
+}
+
+// p Person is the receiver - attach method to Person struct
+func (p Person) Work() {
+	fmt.Println(p.name, "is working")
+}
+
+func describe(w Worker) {
+	fmt.Printf("Interface type %T value %v\n", w, w)
+}
+
 func main() {
 	s := Square{side: 10}
 	info(s)
 	c := Circle{radius: 10}
 	info(c)
+
+	p := Person{
+		name: "Bob",
+	}
+	var w Worker = p
+	describe(w)
+	w.Work()
 }
