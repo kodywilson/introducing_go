@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+)
 
 type Square struct {
 	side float64
@@ -57,4 +62,15 @@ func main() {
 	var w Worker = p
 	describe(w)
 	w.Work()
+
+	// rest call
+	res, err := http.Get("https://raw.githubusercontent.com/dwyl/english-words/master/words.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	bs, _ := ioutil.ReadAll(res.Body)
+	str := string(bs)
+	fmt.Printf("str is type %T\n", str)
+	fmt.Println(str[:100]) // print out first 100 chars
 }
