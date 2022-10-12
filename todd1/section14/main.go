@@ -105,6 +105,19 @@ func main() {
 	fmt.Println(sum(1, 2, 3, 4, 5, 6, 7, 8, 9))
 	// we pass in the function sum and a list of numbers to even
 	fmt.Println("Add up only even numbers:", even(sum, 1, 2, 3, 4, 5, 6, 7, 8, 9))
+	// we pass in the function sum and a list of numbers to odd
+	fmt.Println("Add up only odd numbers:", odd(sum, 1, 2, 3, 4, 5, 6, 7, 8, 9))
+
+	// closure
+	a := incrementor()
+	b := incrementor()
+	// they each get separate value of x within the called function
+	fmt.Println(a()) // 1
+	fmt.Println(a()) // 2
+	fmt.Println(a()) // 3
+	fmt.Println(a()) // 4
+	fmt.Println(b()) // 1
+	fmt.Println(b()) // 2
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
@@ -165,4 +178,22 @@ func even(f func(xi ...int) int, vi ...int) int {
 		}
 	}
 	return f(evens...)
+}
+
+func odd(f func(xi ...int) int, vi ...int) int {
+	var odds []int
+	for _, v := range vi {
+		if v%2 != 0 {
+			odds = append(odds, v)
+		}
+	}
+	return f(odds...)
+}
+
+func incrementor() func() int {
+	var x int
+	return func() int {
+		x++
+		return x
+	}
 }
