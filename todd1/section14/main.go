@@ -87,6 +87,12 @@ func main() {
 	func(x int) {
 		fmt.Println("The meaning of life:", x)
 	}(42)
+
+	f := func() {
+		fmt.Println("this is a func expression")
+	}
+	f()
+	fmt.Printf("%T\n", f)
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
