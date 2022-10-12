@@ -77,6 +77,25 @@ func main() {
 		fmt.Println("Hello,", name)
 	}
 	f("Bob")
+
+	// ex8 - create a function that returns a function
+	fun := funky()
+	fmt.Println(fun())
+
+	// ex9 - callback - pass a func into a func as an argument
+	// I pass sum func into monkey and use it in monkey
+	fmt.Println(monkey(sum, 1, 2, 3))
+
+	// ex10 - closure
+	a := closey()
+	b := closey()
+	a()
+	a()
+	a()
+	b()
+	b()
+	fmt.Println(a())
+	fmt.Println(b())
 }
 
 // ex1
@@ -110,4 +129,33 @@ func baar(si []int) int {
 func deferred() {
 	defer fmt.Println("Me too!") // will run at end of func deferred
 	fmt.Println("I should have gone first, but I got deferred!")
+}
+
+// ex8 - return a func
+func funky() func() int {
+	return func() int {
+		return 42
+	}
+}
+
+// ex9 - callback - pass func into func as an argument
+func monkey(f func([]int) int, si ...int) int {
+	return f(si)
+}
+
+func sum(si []int) int {
+	total := 0
+	for _, v := range si {
+		total += v
+	}
+	return total
+}
+
+// ex10 - closure
+func closey() func() int {
+	var x int
+	return func() int {
+		x++
+		return x
+	}
 }
