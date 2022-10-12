@@ -118,6 +118,11 @@ func main() {
 	fmt.Println(a()) // 4
 	fmt.Println(b()) // 1
 	fmt.Println(b()) // 2
+
+	// recursion
+	fmt.Println(factorial(4))
+	// no recursion - loop
+	fmt.Println(loopFactorial(4))
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
@@ -190,10 +195,27 @@ func odd(f func(xi ...int) int, vi ...int) int {
 	return f(odds...)
 }
 
+// closure
 func incrementor() func() int {
 	var x int
 	return func() int {
 		x++
 		return x
 	}
+}
+
+// recursion
+func factorial(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * factorial(n-1)
+}
+
+func loopFactorial(n int) int {
+	total := 1
+	for i := 1; i <= n; i++ {
+		total *= i
+	}
+	return total
 }
