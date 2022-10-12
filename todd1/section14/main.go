@@ -93,6 +93,13 @@ func main() {
 	}
 	f()
 	fmt.Printf("%T\n", f)
+
+	// return func()
+	ex := fooo()
+	fmt.Printf("%T\n", ex)
+
+	i := ex()
+	fmt.Println(i)
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
@@ -125,4 +132,11 @@ func boo(x ...int) {
 		sum += v
 	}
 	fmt.Println(sum)
+}
+
+// this function returns a function that returns an int
+func fooo() func() int {
+	return func() int {
+		return 2000
+	}
 }
