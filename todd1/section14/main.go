@@ -100,6 +100,11 @@ func main() {
 
 	i := ex()
 	fmt.Println(i)
+
+	// callbacks - pass function as parameter
+	fmt.Println(sum(1, 2, 3, 4, 5, 6, 7, 8, 9))
+	// we pass in the function sum and a list of numbers to even
+	fmt.Println("Add up only even numbers:", even(sum, 1, 2, 3, 4, 5, 6, 7, 8, 9))
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
@@ -139,4 +144,25 @@ func fooo() func() int {
 	return func() int {
 		return 2000
 	}
+}
+
+func sum(xi ...int) int {
+	total := 0
+	for _, v := range xi {
+		total += v
+	}
+
+	return total
+}
+
+// take in function as argument that you can then
+// use in this function
+func even(f func(xi ...int) int, vi ...int) int {
+	var evens []int
+	for _, v := range vi {
+		if v%2 == 0 {
+			evens = append(evens, v)
+		}
+	}
+	return f(evens...)
 }
