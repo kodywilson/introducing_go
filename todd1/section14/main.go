@@ -27,8 +27,16 @@ type human interface {
 	speak()
 }
 
+// any object that implements the interface methods can be used as that type
+
 func talk(h human) {
 	h.speak()
+	switch h.(type) { // switch on type
+	case person: // assertion lets you get back to specific type
+		fmt.Printf("I am a person and my first name is %v\n", h.(person).first) // assertion that this is a person
+	case secretAgent:
+		fmt.Printf("I am a secret agent and my first name is %v\n", h.(secretAgent).first)
+	}
 }
 
 // attach to receiver (secretAgent in this case)
@@ -70,6 +78,15 @@ func main() {
 	fmt.Println(p1)
 	talk(p1)
 	talk(sa1)
+
+	// anonymous functions
+	func() {
+		fmt.Println("Anonymous func!")
+	}() // need () to run it
+
+	func(x int) {
+		fmt.Println("The meaning of life:", x)
+	}(42)
 }
 
 // func (r receiver) identifier(parameters) (return(s)) { ... }
