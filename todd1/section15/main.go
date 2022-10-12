@@ -15,6 +15,31 @@ func (p person) speak() {
 	fmt.Println("My name is", p.first, "and I am", p.age, "years old.")
 }
 
+// ex5 - create circle, square, shape interface and area methods
+type circle struct {
+	radius float64
+}
+
+type square struct {
+	side float64
+}
+
+func (c circle) area() float64 {
+	return c.radius * c.radius * 3.14
+}
+
+func (s square) area() float64 {
+	return s.side * s.side
+}
+
+type shape interface {
+	area() float64 // this is the method signature
+} // to use this interface, match the method signature
+
+func info(s shape) {
+	fmt.Println("Area is", s.area())
+}
+
 func main() {
 	// ex3
 	defer deferred() // will not run until the end of main
@@ -28,13 +53,30 @@ func main() {
 	fmt.Println(fuu(si...))
 	fmt.Println(baar(si))
 
-	// ex4
+	// ex4 - struct and method on struct
 	p1 := person{
 		first: "Bob",
 		last:  "Johnson",
 		age:   23,
 	}
 	p1.speak()
+
+	// ex5 - structs, interface methods
+	c := circle{radius: 10}
+	s := square{side: 10}
+	info(c)
+	info(s)
+
+	// ex6 - anonymous func
+	func() {
+		fmt.Println("Anonymous func!")
+	}()
+
+	// ex7 - assign func to variable and call that func
+	f := func(name string) {
+		fmt.Println("Hello,", name)
+	}
+	f("Bob")
 }
 
 // ex1
