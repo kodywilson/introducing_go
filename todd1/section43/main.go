@@ -93,4 +93,19 @@ func main() {
 	// now sort the slice in reverse and then print
 	sort.Sort(sort.Reverse(sort.IntSlice(numbers)))
 	fmt.Println(numbers)
+
+	// conversion vs assertion
+	var x rune = 'a' // rune is an alias for int32
+	var y int32 = 'b'
+	fmt.Println(x)         // 97 ascii code for a
+	fmt.Println(y)         // 98 ascii code for b
+	fmt.Println(string(x)) // convert rune to string - prints a
+
+	var name interface{} = "Sydney"
+	str, ok := name.(string)
+	if ok {
+		fmt.Printf("%T\n", str)
+	} else {
+		fmt.Printf("value is not a string\n")
+	}
 }
