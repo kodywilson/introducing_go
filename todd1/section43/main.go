@@ -95,6 +95,8 @@ func main() {
 	fmt.Println(numbers)
 
 	// conversion vs assertion
+
+	// conversion type on left side, parens around value being converted
 	var x rune = 'a' // rune is an alias for int32
 	var y int32 = 'b'
 	fmt.Println(x)         // 97 ascii code for a
