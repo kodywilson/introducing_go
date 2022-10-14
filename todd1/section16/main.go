@@ -13,4 +13,25 @@ func main() {
 	fmt.Println(a) // we changed the value of a
 	// passing pointers can save lots of memory
 
+	// Go passes by value
+	x := 0
+	foo(x)
+	fmt.Println(x) // prints zero again
+
+	y := 0
+	fuu(&y)
+	fmt.Println(y)
+}
+
+func foo(y int) {
+	fmt.Println(y)
+	y = 43
+	fmt.Println(y)
+}
+
+// takes a pointer to int
+func fuu(y *int) {
+	fmt.Println(*y)
+	*y = 43
+	fmt.Println(*y)
 }
