@@ -13,7 +13,7 @@ func main() {
 	fmt.Println(&x)
 
 	// ex2
-	p := person{first: "Tom"}
+	p := person{first: "Tommy"}
 	fmt.Println(p.first)
 	changeMe(&p)
 	fmt.Println(p.first)
@@ -21,6 +21,6 @@ func main() {
 
 // ex2
 func changeMe(p *person) {
-	p.first = "Bob"
+	p.first = "Bobbers"
 	// could also do (*p).first = "Bob"
 }
