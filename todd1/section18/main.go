@@ -6,6 +6,8 @@ import (
 	"io"
 	"os"
 	"sort"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type person struct {
@@ -67,4 +69,13 @@ func main() {
 	numbers := []int{10, 2, 5, 99, 232, 55, 3, 1, 100}
 	sort.Ints(numbers)
 	fmt.Println(numbers)
+
+	// bcrypt
+	p := `fake123`
+	bees, err1 := bcrypt.GenerateFromPassword([]byte(p), bcrypt.MinCost)
+	if err1 != nil {
+		fmt.Println(err1)
+	}
+	fmt.Println(p)
+	fmt.Println(string(bees))
 }
