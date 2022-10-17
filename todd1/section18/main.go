@@ -3,6 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"os"
+	"sort"
 )
 
 type person struct {
@@ -45,9 +48,23 @@ func main() {
 
 	// slice of parsons to store my unmarshalled json
 	var peeps []parson
+	// pass data to unmarshall and pointer to data structure
 	erro := json.Unmarshal(bes, &peeps)
 	if erro != nil {
 		fmt.Println(erro)
 	}
 	fmt.Println(peeps)
+
+	fmt.Fprintln(os.Stdout, "Hi")
+	io.WriteString(os.Stdout, "there")
+	fmt.Println()
+
+	// sorting
+	studyGroup := []string{"Zeno", "John", "Al", "Jenny"}
+	sort.Strings(studyGroup)
+	fmt.Println(studyGroup)
+
+	numbers := []int{10, 2, 5, 99, 232, 55, 3, 1, 100}
+	sort.Ints(numbers)
+	fmt.Println(numbers)
 }
