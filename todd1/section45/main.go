@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// you can use <- chan type to show channels that can only receive
 func incrementor() chan int {
 	out := make(chan int)
 	go func() {
@@ -15,6 +16,7 @@ func incrementor() chan int {
 	return out
 }
 
+// chan <- type would be a channel that can only send
 func puller(c chan int) chan int {
 	out := make(chan int)
 	go func() {
