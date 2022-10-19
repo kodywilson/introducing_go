@@ -4,7 +4,36 @@ import (
 	"fmt"
 )
 
+func incrementor() chan int {
+	out := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			out <- i
+		}
+		close(out)
+	}()
+	return out
+}
+
+func puller(c chan int) chan int {
+	out := make(chan int)
+	go func() {
+		var sum int
+		for n := range c {
+			sum += n
+		}
+		out <- sum
+		close(out)
+	}()
+	return out
+}
+
 func main() {
+	c := incrementor()
+	cSum := puller(c)
+	for n := range cSum {
+		fmt.Println(n)
+	}
 	// c := make(chan int) // unbuffered channel, blocks
 
 	// // first run with listening function instead of range
@@ -69,27 +98,27 @@ func main() {
 	// for num := range cha {
 	// 	fmt.Println(num)
 	// }
-	n := 10
-	c := make(chan int)
-	done := make(chan bool)
+	// n := 10
+	// c := make(chan int)
+	// done := make(chan bool)
 
-	for i := 0; i < 10; i++ {
-		go func() {
-			for i := 0; i < 10; i++ {
-				c <- i
-			}
-			done <- true
-		}()
-	}
+	// for i := 0; i < 10; i++ {
+	// 	go func() {
+	// 		for i := 0; i < 10; i++ {
+	// 			c <- i
+	// 		}
+	// 		done <- true
+	// 	}()
+	// }
 
-	go func() {
-		for i := 0; i < n; i++ {
-			<-done
-		}
-		close(c)
-	}()
+	// go func() {
+	// 	for i := 0; i < n; i++ {
+	// 		<-done
+	// 	}
+	// 	close(c)
+	// }()
 
-	for n := range c {
-		fmt.Println(n)
-	}
+	// for n := range c {
+	// 	fmt.Println(n)
+	// }
 }
