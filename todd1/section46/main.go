@@ -27,6 +27,14 @@ func main() {
 		fmt.Println(n)
 	}
 
+	// factorial exercise, many numbers
+	in := gen() // create channel of numbers
+	f := factChan(in)
+
+	for n := range f {
+		fmt.Println(n)
+	}
+
 }
 
 func incrementor(s string) chan int {
@@ -54,6 +62,38 @@ func puller(c chan int) chan int {
 	return out
 }
 
+func gen() <-chan int {
+	out := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			for j := 3; j < 13; j++ {
+				out <- j
+			}
+		}
+		close(out)
+	}()
+	return out
+}
+
+func factChan(in <-chan int) <-chan int {
+	out := make(chan int)
+	go func() {
+		for n := range in {
+			out <- fact(n)
+		}
+		close(out)
+	}()
+	return out
+}
+
+func fact(n int) int {
+	total := 1
+	for i := 2; i <= n; i++ {
+		total *= i
+	}
+	return total
+}
+
 func factorial(n int) chan int {
 	chanOut := make(chan int)
 	go func() {
@@ -66,7 +106,3 @@ func factorial(n int) chan int {
 	}()
 	return chanOut
 }
-
-// func pullFact(chan int) chan int {
-
-// }
