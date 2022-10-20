@@ -22,6 +22,11 @@ func main() {
 		fmt.Println(n)
 	}
 
+	ch := factorial(4)
+	for n := range ch {
+		fmt.Println(n)
+	}
+
 }
 
 func incrementor(s string) chan int {
@@ -48,3 +53,20 @@ func puller(c chan int) chan int {
 	}()
 	return out
 }
+
+func factorial(n int) chan int {
+	chanOut := make(chan int)
+	go func() {
+		total := 1
+		for i := n; i > 0; i-- {
+			total *= i
+		}
+		chanOut <- total
+		close(chanOut)
+	}()
+	return chanOut
+}
+
+// func pullFact(chan int) chan int {
+
+// }
