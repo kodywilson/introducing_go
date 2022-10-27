@@ -5,8 +5,32 @@
   <title>Wisdom & Transport</title>
 </head>
 <body>
-  <p>Time unformatted: {{.}}</p>
-  <p>Time formatted: {{fdateMDY .}}</p>
-  <p>{{. | fdateMDY}}</p>
+
+  EXAMPLE #1
+  {{range .}}
+    {{.}}
+  {{end}}
+
+  EXAMPLE #2
+  {{if .}}
+    EXAMPLE #2 - {{.}}
+  {{end}}
+  
+  EXAMPLE #3
+  {{range .}}
+    {{if .Name}}
+      EX#3 - {{.Name}}
+    {{end}}
+  {{end}}
+
+  EXAMPLE #4
+  {{range .}}
+    {{if and .Name .Admin}}
+      EX#4 - Name: {{.Name}}
+      EX#4 - Motto: {{.Motto}}
+      EX#4 - Admin: {{.Admin}}
+    {{end}}
+  {{end}}
+
 </body>
 </html>
