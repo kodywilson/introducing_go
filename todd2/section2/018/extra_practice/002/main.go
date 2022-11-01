@@ -45,7 +45,7 @@ func todo(w http.ResponseWriter, r *http.Request) {
 func main() {
 	mux := http.NewServeMux()
 
-	fs := http.FileServer(http.Dir("/.static"))
+	fs := http.FileServer(http.Dir("./static"))
 
 	mux.HandleFunc("/todo", todo)
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
