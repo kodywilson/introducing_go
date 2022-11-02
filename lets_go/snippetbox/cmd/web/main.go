@@ -33,23 +33,12 @@ func main() {
 		errorLog: errorLog,
 		infoLog:  infoLog,
 	}
-	// Initialize a new servemux
-	mux := http.NewServeMux()
-
-	// create file server for statics
-	fileServer := http.FileServer(http.Dir(cfg.staticDir))
-
-	// Register handlers
-	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet/view", app.snippetView)     // register snippet view handler
-	mux.HandleFunc("/snippet/create", app.snippetCreate) // register snippet create handler
 
 	// Start web server
 	srv := &http.Server{
 		Addr:     cfg.addr,
 		ErrorLog: errorLog,
-		Handler:  mux,
+		Handler:  app.routes(),
 	}
 
 	infoLog.Printf("Starting server on %s\n", cfg.addr)
