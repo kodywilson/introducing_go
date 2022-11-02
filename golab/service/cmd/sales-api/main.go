@@ -17,5 +17,5 @@ func run() error {
 	// logging
 	log := log.New(os.Stdout, "SALES : ", log.LstdFlags|log.Lmicroseconds|log.Lshortfile)
 	fmt.Println(log)
-
+	return fmt.Errorf("something went wrong")
 }
