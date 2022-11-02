@@ -4,7 +4,13 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 )
+
+type application struct {
+	errorLog *log.Logger
+	infoLog  *log.Logger
+}
 
 type config struct {
 	addr      string
@@ -18,6 +24,15 @@ func main() {
 	flag.StringVar(&cfg.staticDir, "static-dir", "./ui/static", "Path to static assets")
 	flag.Parse()
 
+	// set up loggers
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+	// initialize app struct
+	app := &application{
+		errorLog: errorLog,
+		infoLog:  infoLog,
+	}
 	// Initialize a new servemux
 	mux := http.NewServeMux()
 
@@ -26,12 +41,19 @@ func main() {
 
 	// Register handlers
 	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
-	mux.HandleFunc("/", home)
-	mux.HandleFunc("/snippet/view", snippetView)     // register snippet view handler
-	mux.HandleFunc("/snippet/create", snippetCreate) // register snippet create handler
+	mux.HandleFunc("/", app.home)
+	mux.HandleFunc("/snippet/view", app.snippetView)     // register snippet view handler
+	mux.HandleFunc("/snippet/create", app.snippetCreate) // register snippet create handler
 
 	// Start web server
-	log.Printf("Starting server on %s\n", cfg.addr)
-	err := http.ListenAndServe(cfg.addr, mux)
-	log.Fatal(err)
+	srv := &http.Server{
+		Addr:     cfg.addr,
+		ErrorLog: errorLog,
+		Handler:  mux,
+	}
+
+	infoLog.Printf("Starting server on %s\n", cfg.addr)
+	// call ListenAndServe() on srv http struct
+	err := srv.ListenAndServe()
+	errorLog.Fatal(err)
 }
