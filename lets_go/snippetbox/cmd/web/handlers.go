@@ -18,15 +18,19 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// generate list of most recent snippets
 	snippets, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	app.render(w, http.StatusOK, "home.gohtml", &templateData{
-		Snippets: snippets,
-	})
+	// initialize data struct and add snippets
+	data := app.newTemplateData(r)
+	data.Snippets = snippets
+
+	// display data on home page
+	app.render(w, http.StatusOK, "home.gohtml", data)
 }
 
 // snippetView handler function
@@ -49,9 +53,12 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.render(w, http.StatusOK, "view.gohtml", &templateData{
-		Snippet: snippet,
-	})
+	// Initialize data struct and add snippet
+	data := app.newTemplateData(r)
+	data.Snippet = snippet
+
+	// display selected snippet
+	app.render(w, http.StatusOK, "view.gohtml", data)
 }
 
 // snippetCreate handler function
