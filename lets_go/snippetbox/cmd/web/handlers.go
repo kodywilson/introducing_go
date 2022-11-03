@@ -1,10 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"html/template"
+
+	//"html/template"
 	"net/http"
 	"strconv"
+
+	"github.com/kodywilson/snippetbox/internal/models"
 )
 
 // Home handler function
@@ -15,27 +19,37 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// template paths
-	files := []string{
-		"./ui/html/base.gohtml",
-		"./ui/html/pages/home.gohtml",
-		"./ui/html/partials/nav.gohtml",
-	}
-
-	// read templates
-	tpl, err := template.ParseFiles(files...)
+	snippets, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
-	// execute template
-	err = tpl.ExecuteTemplate(w, "base", nil)
-	if err != nil {
-		app.serverError(w, err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	for _, snippet := range snippets {
+		fmt.Fprintf(w, "%+v\n", snippet)
 	}
+
+	// // template paths
+	// files := []string{
+	// 	"./ui/html/base.gohtml",
+	// 	"./ui/html/pages/home.gohtml",
+	// 	"./ui/html/partials/nav.gohtml",
+	// }
+
+	// // read templates
+	// tpl, err := template.ParseFiles(files...)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// // execute template
+	// err = tpl.ExecuteTemplate(w, "base", nil)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	// }
 }
 
 // snippetView handler function
@@ -46,7 +60,18 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		app.notFound(w)
 		return
 	}
-	fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
+
+	// GET data for snippet based on ID
+	snippet, err := app.snippets.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+	fmt.Fprintf(w, "%v", snippet)
 }
 
 // snippetCreate handler function
