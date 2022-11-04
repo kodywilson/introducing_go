@@ -2,7 +2,7 @@ package main
 
 import "net/http"
 
-func (app *application) routes() *http.ServeMux {
+func (app *application) routes() http.Handler {
 	// Initialize a new servemux
 	mux := http.NewServeMux()
 
@@ -16,5 +16,5 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/snippet/view", app.snippetView)     // register snippet view handler
 	mux.HandleFunc("/snippet/create", app.snippetCreate) // register snippet create handler
 
-	return mux
+	return app.recoverPanic(app.logRequest(secureHeaders(mux)))
 }
