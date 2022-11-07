@@ -5,19 +5,18 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
-	"unicode/utf8"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/kodywilson/snippetbox/internal/models"
+	"github.com/kodywilson/snippetbox/internal/validator"
 )
 
 // store snippet form info
 type snippetCreateForm struct {
-	Title       string
-	Content     string
-	Expires     int
-	FieldErrors map[string]string
+	Title   string
+	Content string
+	Expires int
+	validator.Validator
 }
 
 // Home handler function
@@ -68,7 +67,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 
 // snippetCreate returns form for creating new snippet
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
-  data := app.newTemplateData(r)
+	data := app.newTemplateData(r)
 
 	data.Form = snippetCreateForm{
 		Expires: 365,
@@ -81,55 +80,43 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-			app.clientError(w, http.StatusBadRequest)
-			return
+		app.clientError(w, http.StatusBadRequest)
+		return
 	}
 
 	// form data is string, but we want int for expires
 	expires, err := strconv.Atoi(r.PostForm.Get("expires"))
 	if err != nil {
-			app.clientError(w, http.StatusBadRequest)
-			return
+		app.clientError(w, http.StatusBadRequest)
+		return
 	}
 
 	// Allows us to store form data in case user has to submit again
 	form := snippetCreateForm{
-		Title:       r.PostForm.Get("title"),
-		Content:     r.PostForm.Get("content"),
-		Expires:     expires,
-		FieldErrors: map[string]string{},
-  }
+		Title:   r.PostForm.Get("title"),
+		Content: r.PostForm.Get("content"),
+		Expires: expires,
+	}
 
-	// check title length
-	if strings.TrimSpace(form.Title) == "" {
-		form.FieldErrors["title"] = "This field cannot be blank"
-  } else if utf8.RuneCountInString(form.Title) > 100 {
-		form.FieldErrors["title"] = "This field cannot be more than 100 characters long"
-  }
+	// Validations
+	form.CheckField(validator.NotBlank(form.Title), "title", "This field cannot be blank")
+	form.CheckField(validator.MaxChars(form.Title, 100), "title", "This field cannot be more than 100 characters long")
+	form.CheckField(validator.NotBlank(form.Content), "content", "This field cannot be blank")
+	form.CheckField(validator.PermittedInt(form.Expires, 1, 7, 365), "expires", "This field must equal 1, 7 or 365")
 
-	// check content field
-	if strings.TrimSpace(form.Content) == "" {
-		form.FieldErrors["content"] = "This field cannot be blank"
-  }
-
-	// check expires
-	if form.Expires != 1 && form.Expires != 7 && form.Expires != 365 {
-		form.FieldErrors["expires"] = "This field must equal 1, 7 or 365"
-  }
-
-	// return errors if any are found
-	if len(form.FieldErrors) > 0 {
+	// if errors are found, resubmit form with saved data
+	if !form.Valid() {
 		data := app.newTemplateData(r)
 		data.Form = form
 		app.render(w, http.StatusUnprocessableEntity, "create.gohtml", data)
 		return
 	}
 
-  // write the snippet data to the DB
+	// write the snippet data to the DB
 	id, err := app.snippets.Insert(form.Title, form.Content, form.Expires)
 	if err != nil {
-			app.serverError(w, err)
-			return
+		app.serverError(w, err)
+		return
 	}
 
 	// redirect to snippet page
