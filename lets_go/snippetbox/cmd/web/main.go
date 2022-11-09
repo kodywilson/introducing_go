@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 	"github.com/go-playground/form/v4"
 	"github.com/kodywilson/snippetbox/internal/models"
@@ -67,9 +68,12 @@ func main() {
 	// configure it to use our MySQL database as the session store, and set a
 	// lifetime of 12 hours (so that sessions automatically expire 12 hours
 	// after first being created).
+	// sessionManager := scs.New()
+	// //sessionManager.Store = mysqlstore.New(db)
+	// sessionManager.Lifetime = 12 * time.Hour
+
 	sessionManager := scs.New()
-	//sessionManager.Store = mysqlstore.New(db)
-	sessionManager.Lifetime = 12 * time.Hour
+	sessionManager.Store = postgresstore.New(db)
 
 	// initialize app struct
 	app := &application{
