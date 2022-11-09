@@ -57,9 +57,15 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// flash message if newly created snippet
+	flash := app.sessionManager.PopString(r.Context(), "flash")
+
 	// Initialize data struct and add snippet
 	data := app.newTemplateData(r)
 	data.Snippet = snippet
+
+  // Pass the flash message to the template.
+  data.Flash = flash
 
 	// display selected snippet
 	app.render(w, http.StatusOK, "view.gohtml", data)
@@ -106,6 +112,10 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 		app.serverError(w, err)
 		return
 	}
+
+  // Use the Put() method to add a string value ("Snippet successfully 
+  // created!") and the corresponding key ("flash") to the session data.
+  app.sessionManager.Put(r.Context(), "flash", "Snippet successfully created!")
 
 	// redirect to snippet page
 	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
