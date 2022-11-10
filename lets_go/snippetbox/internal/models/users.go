@@ -1,10 +1,11 @@
 package models
 
 import (
-    "database/sql"
-    "time"
-)
+	"database/sql"
+	"time"
 
+	"golang.org/x/crypto/bcrypt"
+)
 
 // Define a new User type. The field names and types align
 // with the columns in the database "users" table.
@@ -21,8 +22,37 @@ type UserModel struct {
 	DB *sql.DB
 }
 
+func (m *UserModel) EmailTaken(email string) bool {
+	stmt := `SELECT id FROM users WHERE email = $1`
+
+	var id int
+	if err := m.DB.QueryRow(stmt, email).Scan(&id); err != nil {
+		if err == sql.ErrNoRows {
+			return false
+		}
+	}
+	return true
+
+}
+
 // We'll use the Insert method to add a new record to the "users" table.
 func (m *UserModel) Insert(name, email, password string) error {
+	// Create a bcrypt hash of the plain-text password.
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		return err
+	}
+
+	stmt := `INSERT INTO users (name, email, hashed_password, created)
+    VALUES($1, $2, $3, now())`
+
+	// Use the Exec() method to insert the user details and hashed password
+	// into the users table.
+	_, err = m.DB.Exec(stmt, name, email, string(hashedPassword))
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
