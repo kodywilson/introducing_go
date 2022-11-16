@@ -25,6 +25,7 @@ type SnippetModel struct {
 func (m *SnippetModel) Insert(title string, content string, expires int) (int, error) {
 	//stmt := `INSERT INTO snippets (title, content, created, expires)
 	//VALUES($1, $2, now(), CURRENT_DATE + INTERVAL '$3 DAY')`
+	// $# for PG and ? for mysql
 	stmt := `insert into snippets (title, content, created, expires)
 	values ($1, $2, now(), CURRENT_DATE + $3 * INTERVAL '1 DAY')
 	returning id`
