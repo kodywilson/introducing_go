@@ -24,6 +24,7 @@ type application struct {
 	logger *log.Logger
 }
 
+// 11-16-2022
 func main() {
 	// declare cfg, config struct
 	var cfg config
