@@ -10,6 +10,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/kodywilson/greenlight/internal/data"
+
 	_ "github.com/lib/pq"
 )
 
@@ -32,6 +34,7 @@ type config struct {
 type application struct {
 	config config
 	logger *log.Logger
+	models data.Models
 }
 
 // 11-16-2022
@@ -73,6 +76,7 @@ func main() {
 	app := &application{
 		config: cfg,
 		logger: logger,
+		models: data.NewModels(db),
 	}
 
 	// declare HTTP server and set reasonable defaults
