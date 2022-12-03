@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"time"
@@ -57,18 +58,28 @@ func (m MovieModel) Get(id int64) (*Movie, error) {
 
 	// Define the SQL query for retrieving the movie data.
 	query := `
-			SELECT id, created_at, title, year, runtime, genres, version
+			SELECT pg_sleep(10), id, created_at, title, year, runtime, genres, version
 			FROM movies
 			WHERE id = $1`
 
 	// Declare a Movie struct to hold the data returned by the query.
 	var movie Movie
 
+	// Use the context.WithTimeout() function to create a context.Context which carries a
+	// 3-second timeout deadline. Note that we're using the empty context.Background()
+	// as the 'parent' context.
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+
+	// Importantly, use defer to make sure that we cancel the context before the Get()
+	// method returns.
+	defer cancel()
+
 	// Execute the query using the QueryRow() method, passing in the provided id value
 	// as a placeholder parameter, and scan the response data into the fields of the
 	// Movie struct. Importantly, notice that we need to convert the scan target for the
 	// genres column using the pq.Array() adapter function again.
-	err := m.DB.QueryRow(query, id).Scan(
+	err := m.DB.QueryRowContext(ctx, query, id).Scan(
+		&[]byte{}, // For testing long running query timeout
 		&movie.ID,
 		&movie.CreatedAt,
 		&movie.Title,
