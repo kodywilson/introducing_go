@@ -9,6 +9,7 @@ import (
 	"github.com/kodywilson/greenlight/internal/validator"
 )
 
+// register a new user
 func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Request) {
 	// Create an anonymous struct to hold the expected data from the request body.
 	var input struct {
