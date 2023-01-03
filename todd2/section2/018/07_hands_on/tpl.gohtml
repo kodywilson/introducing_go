@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+{{range .}}
+  Breakfast
+  {{range .Breakfast}}
+    {{.}}
+  {{end}}
+  Lunch
+  {{range .Lunch}}
+    {{.}}
+  {{end}}
+  Dinner
+  {{range .Dinner}}
+    {{.}}
+  {{end}}
+{{end}}
+
+</body>
+</html>
