@@ -10,6 +10,7 @@ func main() {
     "Don't leave me hanging...",
     "Please respond",
     "Hey dude!",
+    "Ok, that does it!",
   }
   numMessages := float64(len(messagesFromDoris))
   costPerMessage := .02
