@@ -18,4 +18,5 @@ func main() {
   totalCost := costPerMessage * numMessages
 
   fmt.Printf("Doris spent %.2f on text messages today\n", totalCost)
+  fmt.Printf("That's a great deal!\n")
 }
